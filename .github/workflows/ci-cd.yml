@@ -1,0 +1,62 @@
+# .github/workflows/deploy.yml
+
+name: Deploy to AWS Amplify
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Or your project's Node.js version
+          cache: 'npm' # Or 'yarn', 'pnpm'
+
+      - name: Install dependencies
+        run: npm install # Or yarn install, pnpm install
+
+      - name: Run linter
+        # This command depends on your project's linting setup
+        run: npm run lint
+
+      - name: Run tests
+        # This command depends on your project's testing setup
+        run: npm run test --if-present
+
+      - name: Check build
+        # This verifies that the application compiles successfully
+        run: npm run build
+
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v3
+
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+#           aws-region: us-east-1
+
+#       - name: Start Amplify Deployment
+#         run: |
+#           if [[ ${{ github.ref }} == 'refs/heads/main' ]]; then
+#             BRANCH_NAME="main"
+#           else
+#             BRANCH_NAME="staging"
+#           fi
+#           aws amplify start-job --app-id ${{ secrets.AMPLIFY_APP_ID }} --branch-name $BRANCH_NAME --job-type RELEASE
