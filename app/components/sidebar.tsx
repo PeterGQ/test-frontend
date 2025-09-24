@@ -11,6 +11,12 @@ import {
   FiChevronLeft,
   FiChevronRight
 } from 'react-icons/fi';
+import { ComponentType } from 'react';
+
+interface IconProps {
+  boxSize?: string | number;
+  color?: string;
+}
 
 interface SidebarProps {
   isOpen: boolean;
@@ -18,7 +24,7 @@ interface SidebarProps {
 }
 
 interface NavItemProps {
-  icon: any;
+  icon: ComponentType<IconProps>;
   children: string;
   href: string;
   isOpen: boolean;

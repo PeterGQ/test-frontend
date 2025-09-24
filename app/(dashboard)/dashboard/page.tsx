@@ -114,9 +114,13 @@ export default function Dashboard() {
           const result = await response.json();
           console.log('Onboarding status:', result.message);
           setSyncStatus('synced');
-        } catch (err: any) {
+        } catch (err: unknown) {
           console.error('Failed to sync user with backend:', err);
-          setSyncError(err.message || 'An unknown error occurred during user sync.');
+          if (err instanceof Error) {
+            setSyncError(err.message);
+          } else {
+            setSyncError('An unknown error occurred during user sync.');
+          }
           setSyncStatus('error');
         }
       };
@@ -181,8 +185,12 @@ export default function Dashboard() {
       const result = await response.json(); // The /error endpoint returns JSON
       setData(JSON.stringify(result, null, 2));
 
-    } catch (err: any) {
-      setError(err.message || 'An unknown error occurred.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred.');
+      }
       console.error('Fetch error:', err);
     } finally {
       setIsLoading(false);
@@ -217,8 +225,12 @@ export default function Dashboard() {
           window.location.href = session.url;
         }
       }
-    } catch (err: any) {
-      setError(err.message || 'An unknown error occurred.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred.');
+      }
       console.error('Fetch error:', err);
     } finally {
       setIsCheckingOut(false);
@@ -252,8 +264,12 @@ export default function Dashboard() {
           window.location.href = session.url;
         }
       }
-    } catch (err: any) {
-      setError(err.message || 'An unknown error occurred.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred.');
+      }
       console.error('Fetch error:', err);
     } finally {
       setIsCheckingOut(false);
