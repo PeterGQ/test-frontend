@@ -1,8 +1,10 @@
 import {withSentryConfig} from "@sentry/nextjs";
 import type { NextConfig } from "next";
+import next from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'standalone',
   async rewrites() {
     return [
       {
@@ -15,6 +17,8 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
+module.exports = nextConfig;
 
 export default withSentryConfig(nextConfig, {
   // For all available options, see:
