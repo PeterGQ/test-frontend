@@ -4,6 +4,7 @@ import next from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'standalone',
   async rewrites() {
     return [
       {

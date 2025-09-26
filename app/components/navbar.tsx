@@ -23,6 +23,21 @@ export default function NavBar() {
     setMounted(true);
   }, []);
 
+ useEffect(() => {
+    const checkServerEnvironment = async () => {
+      // We only run the check once the user object is loaded to avoid unnecessary calls.
+        console.log("CLIENT: Triggering server environment variable check...");
+        try {
+          const response = process.env.NEXT_PUBLIC_API_URL;
+          
+
+        } catch (error) {
+          console.error("CLIENT: Failed to fetch server environment variables.", error);
+      }
+    };
+ checkServerEnvironment();
+  }); //
+
   if (!mounted) {
     return (
       <Box
