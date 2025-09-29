@@ -99,8 +99,8 @@ export default function Dashboard() {
         setSyncError(null);
         try {
           const token = await getAccessToken();
-          console.log("--- DECODE THIS ACCESS TOKEN ---");
-          console.log(token);
+          // console.log("--- DECODE THIS ACCESS TOKEN ---");
+          // console.log(token);
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/onboard`, {
             method: 'POST',
             headers: {
