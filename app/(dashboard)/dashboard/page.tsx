@@ -135,7 +135,7 @@ export default function Dashboard() {
       if (user) {
         try {
           const token = await getAccessToken(); // In a real app, fetch this securely
-          const response = await fetch('/api/user/status', {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/status`, {
             headers: { 'Authorization': `Bearer ${token}` },
           });
 
